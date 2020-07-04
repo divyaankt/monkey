@@ -66,7 +66,7 @@ func newToken(tokenType token.TokenType, ch byte) token.Token {
 }
 
 func (l *Lexer) readIdentifier() string {
-	postion := l.position
+	position := l.position
 
 	for isLetter(l.ch) {
 		l.readChar()
