@@ -116,3 +116,13 @@ func (l *Lexer) readNumber() string {
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9'
 }
+
+//Similar to readChar() just doesn't increment l.readPosition and l.position
+//just peeks ahead
+func (l *Lexer) peekChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	} else {
+		return l.input[l.readPosition]
+	}
+}
