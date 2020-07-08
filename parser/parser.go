@@ -119,3 +119,19 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 		return false
 	}
 }
+
+//Monkey uses a Pratt Parser(Top Down Operator Precedence Parser), for evaluating expressions
+//Monkey has only infix and prefix operators
+//Some examples of expressions include:
+//-5, !true, !false
+//add(2, 3), add(add(2, 3), add(5, 10)), max(5, add(5, (5 * 5)))
+//let add = fn(x, y) { return x + y };
+//fn(x, y) { return x + y }(5, 5)
+//(fn(x) { return x }(5) + 10 ) * 10
+//let result = if (10 > 5) { true } else { false }; <--(If Expression)
+
+type (
+	//Two types of function depending upon the position of the token encountered
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
