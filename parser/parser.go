@@ -12,6 +12,19 @@ type Parser struct {
 	curToken  token.Token
 	peekToken token.Token //Lookahead
 	errors    []string
+
+	//With these maps in place, we can just check if the appropriate map (infix or prefix) has a parsing
+	//function associated with curToken.Type
+	prefixParseFns map[token.TokenType]prefixParseFn
+	infixParseFns  map[token.TokenType]infixParseFn
+}
+
+func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
+	p.prefixParseFns[tokenType] = fn
+}
+
+func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
+	p.infixParseFns[tokenType] = fn
 }
 
 func New(l *lexer.Lexer) *Parser {
