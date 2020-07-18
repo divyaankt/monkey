@@ -55,6 +55,10 @@ func New(l *lexer.Lexer) *Parser {
 	return p
 }
 
+func (p *Parser) parseIdentifier() ast.Expression {
+	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+}
+
 func (p *Parser) Errors() []string {
 	return p.errors
 }
