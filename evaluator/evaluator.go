@@ -5,6 +5,19 @@ import (
 	"monkey/object"
 )
 
+/*
+Rather than creating a new object.Boolean every time
+we encounter a true or false, let's reference them instead of creating
+new ones
+*/
+var (
+	TRUE  = &object.Boolean{Value: true}
+	FALSE = &object.Boolean{Value: false}
+)
+
+//Eval function helps the REPL to evaluates the AST.
+//It is a tree-walking interpreter.
+//Eval is ...
 func Eval(node ast.Node) object.Object {
 	switch node := node.(type) {
 
@@ -21,10 +34,17 @@ func Eval(node ast.Node) object.Object {
 		return &object.Integer{Value: node.Value}
 
 	case *ast.Boolean:
-		return &object.Boolean{Value: node.Value}
+		return nativeBooltoBooleanObject(node.Value)
 	}
 
 	return nil
+}
+
+func nativeBooltoBooleanObject(input bool) *object.Boolean {
+	if input {
+		return TRUE
+	}
+	return FALSE
 }
 
 func evalStatements(stmts []ast.Statement) object.Object {
