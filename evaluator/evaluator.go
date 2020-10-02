@@ -11,6 +11,7 @@ we encounter a true or false, let's reference them instead of creating
 new ones
 */
 var (
+	NULL  = &object.Null{}
 	TRUE  = &object.Boolean{Value: true}
 	FALSE = &object.Boolean{Value: false}
 )
