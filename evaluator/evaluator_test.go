@@ -10,7 +10,7 @@ import (
 /*
 Given an *ast.IntegerLiteral, our
 Eval function should return an *object.Integer whose Value field contains the same integer as
-*ast.IntegerLiteral.Value.
+*ast.IntegerLiteral.Value. All tests for integers will be included here
 */
 func TestEvalIntegerExpression(t *testing.T) {
 	tests := []struct {
