@@ -292,3 +292,26 @@ func (al *ArrayLiteral) String() string {
 
 	return out.String()
 }
+
+//AST for Array Indexing Operation, which is of the form <expression>[<expression>]
+type IndexExpression struct {
+	Token token.Token //The [ token
+	Left  Expression
+	Index Expression
+}
+
+func (ie *IndexExpression) expressionNode()      {}
+func (ie *IndexExpression) TokenLiteral() string { return ie.Token.Literal }
+func (ie *IndexExpression) String() string {
+	var out bytes.Buffer
+
+	//Here Left and Index bith are Expressions
+	//Left and Index can be of type identifier, array literal and a function call
+	out.WriteString("(")
+	out.WriteString(ie.Left.String())
+	out.WriteString("[")
+	out.WriteString(ie.Index.String())
+	out.WriteString("])")
+
+	return out.String()
+}
