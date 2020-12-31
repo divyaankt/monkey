@@ -255,6 +255,11 @@ return 1;
 			"foobar",
 			"identifier not found: foobar",
 		},
+		//To make sure that using an object as hash key that does not implement object.Hashable produces an error
+		{
+			`{"name": "Monkey"}[fn(x) { x }];`,
+			"unusable as hash key: FUNCTION",
+		},
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
