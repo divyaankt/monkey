@@ -180,6 +180,8 @@ func (h *Hash) Inspect() string {
 	return out.String()
 }
 
+//We can use this interface in our evaluator to check if the given object
+//is usable as a hash key when we evaluate hash literals or index expressions for hashes.
 type Hashable interface {
 	HashKey() HashKey
 }
