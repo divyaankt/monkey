@@ -22,7 +22,7 @@ func TestModify(t *testing.T) {
 		return integer
 	}
 
-	test := []struct {
+	tests := []struct {
 		input    Node
 		expected Node
 	}{
