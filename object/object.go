@@ -21,6 +21,7 @@ const (
 	BUILTIN_OBJ      = "BUILTIN"
 	ARRAY_OBJ        = "ARRAY"
 	HASH_OBJ         = "HASH_OBJ"
+	QUOTE_OBJ        = "QUOTE"
 )
 
 type Object interface {
@@ -184,4 +185,13 @@ func (h *Hash) Inspect() string {
 //is usable as a hash key when we evaluate hash literals or index expressions for hashes.
 type Hashable interface {
 	HashKey() HashKey
+}
+
+type Quote struct {
+	Node ast.Node
+}
+
+func (q *Quote) Type() ObjectType { return QUOTE_OBJ }
+func (q *Quote) Inspect() string {
+	return "QUOTE(" + q.Node.String() + ")"
 }
