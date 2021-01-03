@@ -29,6 +29,19 @@ func Modify(node Node, modifier ModifierFunc) Node {
 		node.Left, _ = Modify(node.Left, modifier).(Expression)
 		node.Index, _ = Modify(node.Index, modifier).(Expression)
 
+	case *IfExpression:
+		node.Condition, _ = Modify(node.Condition, modifier).(Expression)
+		node.Consequence, _ = Modify(node.Consequence, modifier).(*BlockStatement)
+
+		if node.Alternative != nil {
+			node.Alternative, _ = Modify(node.Alternative, modifier).(*BlockStatement)
+		}
+
+	case *BlockStatement:
+		for i, _ := range node.Statements {
+			node.Statements[i], _ = Modify(node.Statements[i], modifier).(Statement)
+		}
+
 	}
 
 	return modifier(node)
